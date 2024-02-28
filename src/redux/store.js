@@ -7,6 +7,11 @@ import loginReducer from "../slices/loginSlice"
 import contratosReducer from "../slices/numeroContrato"
 import registerReducer from "../slices/registerSlice"
 import forgotPassReducer from "../slices/forgotPass"
+import destinoReducer from "../slices/getDestinoSlice"
+import contratoReducer from "../slices/getContratoSlice"
+import verifyPasajeroReducer from "../slices/verifyPasajero"
+import pasajeroReducer from "../slices/getPasajeroSlice"
+import postPasajeroReducer from "../slices/postPasajeroSlice"
 
 export const store = configureStore({
   reducer:{
@@ -16,6 +21,12 @@ export const store = configureStore({
     login: loginReducer,
     contratos: contratosReducer,
     register: registerReducer,
-    forgotPass: forgotPassReducer
+    forgotPass: forgotPassReducer,
+    destino: destinoReducer,
+    contrato: contratoReducer,
+    verifyPasajero: verifyPasajeroReducer,
+    pasajero: pasajeroReducer,
+    postPasajero: postPasajeroReducer
+
   }
 }, applyMiddleware(thunk))

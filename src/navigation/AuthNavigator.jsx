@@ -23,7 +23,7 @@ axios.defaults.baseURL = 'https://www.turismocuyen.com.ar'
 export default function AuthNavigator() {
 
 	//verificamos si el usser esta autenticado.
-	const { setDataUser } = useContext(UserContext)
+	const { setUserData } = useContext(UserContext)
 	const [initializing, setInitializing] = useState(true)
 	const [user, setUser] = useState(null)
 
@@ -31,13 +31,23 @@ export default function AuthNavigator() {
 		const data = await AsyncStorage.getItem("userStorage")
 		const parseado = JSON.parse(data)
 		if (parseado !== null) {
-			setDataUser(parseado)
+			setUserData({
+				jwt: parseado.token,
+        nombre: parseado.usuario.nombre,
+        apellido: parseado.usuario.apellido,
+        email: parseado.usuario.email,
+        usuario: parseado.usuario.usuario,
+        telefono: parseado.usuario.telefono,
+        contrato: parseado.usuario.contrato,
+        rol: parseado.usuario.rol,
+        id: parseado.usuario.id
+			})
 		}
 	}
 
-	// useEffect(()=>{
-	// 	showData()
-	// },[])
+	useEffect(() => {
+		showData()
+	}, [])
 
 	function onAuthStateChange(user) {
 		showData()
@@ -58,12 +68,12 @@ export default function AuthNavigator() {
 					<Stack.Screen name="landing" component={DrawerNavigator} options={{ headerShown: false }} />
 					:
 					<>
-			
+
 						<Stack.Screen name="introScreen" component={RouteInto} options={{ headerShown: false }} />
 						<Stack.Screen name="login" component={Login} options={{ headerShown: false }} />
 						<Stack.Screen name="register" component={Register} options={{ headerShown: false }} />
 						<Stack.Screen name="registerOk" component={RegisterOk} options={{ headerShown: false }} />
-						 <Stack.Screen name="forgotPass" component={ForgotPassword} options={{ headerShown: false }} />
+						<Stack.Screen name="forgotPass" component={ForgotPassword} options={{ headerShown: false }} />
 						<Stack.Screen name="forgotPassOne" component={ForgotPassword1} options={{ headerShown: false }} />
 						<Stack.Screen name="forgotPasstwo" component={ForgotPassword2} options={{ headerShown: false }} />
 						<Stack.Screen name="forgotPassthree" component={ForgotPassword3} options={{ headerShown: false }} />

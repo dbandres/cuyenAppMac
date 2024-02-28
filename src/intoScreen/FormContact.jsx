@@ -3,15 +3,13 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { CustomInput } from "./CustomInput";
 import { useForm } from "react-hook-form";
 import AwesomeAlert from 'react-native-awesome-alerts'
-import { API_URL, token } from "../api";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { postContactForm } from "../slices/contactFormSlice";
 
 
 export const FormContact = React.forwardRef((props, ref) => {
 
-  const { handleSubmit, setValue, reset, control } = useForm()
+  const { handleSubmit, setValue, reset, control, trigger } = useForm()
   const [showAlert2, setShowAlert2] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showAlert1, setShowAlert1] = useState(false)
@@ -66,23 +64,23 @@ export const FormContact = React.forwardRef((props, ref) => {
     )
   }
 
-  const handleSubmitFormulario = (data) =>{
+  const handleSubmitFormulario = (data) => {
     console.log(data);
-    if(data.mensaje && data.namecomplete && data.phone && data.useremail){
+    if (data.mensaje && data.namecomplete && data.phone && data.useremail) {
       setShowAlert2(true)
       dispatch(postContactForm(data))
-    }else{
+    } else {
       console.log("faltan datos")
       setShowAlert1(true)
     }
   }
 
-  useEffect(()=>{
-    if(status === 200){
+  useEffect(() => {
+    if (status === 200) {
       setShowAlert2(false)
       setShowAlert(true)
     }
-  },[status])
+  }, [status])
 
 
   return (
@@ -91,13 +89,17 @@ export const FormContact = React.forwardRef((props, ref) => {
         <Text style={{ color: "#FFFFFF", fontSize: 14, fontWeight: "bold" }}>Formulario </Text>
         <Text style={{ color: "#FFFFFF", fontSize: 14, fontWeight: "400" }}>de contacto</Text>
       </View>
-      <View style={{ width: "80%", height: "40%", }}>
+      <View style={{ width: "80%", height: "50%" }}>
         <CustomInput
           control={control}
           formIntro={true}
+          formContact={true}
+          trigger={trigger}
           name="namecomplete"
           placeholder="Nombre y apellido"
           rules={{
+            required: true,
+            pattern: { value: /^[a-zA-Z]+$/, message: "El nombre es incorrecto" },
             minLength: {
               value: 2,
               message: "El nombre debe tener un minimo de 2 caracteres"
@@ -111,30 +113,36 @@ export const FormContact = React.forwardRef((props, ref) => {
         <CustomInput
           control={control}
           formIntro={true}
+          formContact={true}
+          trigger={trigger}
           name="phone"
           numeric="numeric"
           placeholder="Teléfono de contacto"
           rules={{
+            required: true,
             minLength: {
-              value: 2,
-              message: "El nombre debe tener un minimo de 2 caracteres"
+              value: 10,
+              message: "El número debe tener un minimo de 10 dígitos"
             },
             maxLength: {
               value: 15,
-              message: "El nombre debe tener como maximo de 15 caracteres"
+              message: "El número debe tener como maximo de 15 dígitos"
             }
           }}
         />
         <CustomInput
           control={control}
           formIntro={true}
+          formContact={true}
+          trigger={trigger}
           name="useremail"
           placeholder="E-mail"
           rules={{
+            required: true,
             pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "La Direccion de Email es Incorrecta" }
           }}
         />
-        <View style={{ width: "50%", alignItems: "center", height: "25%", justifyContent: "center", marginTop: -15 }}>
+        <View style={{ width: "50%", alignItems: "center", height: "15%", justifyContent: "center" }}>
           <Text style={{ color: "white" }}>
             Dejanos tu mensaje
           </Text>
@@ -142,6 +150,7 @@ export const FormContact = React.forwardRef((props, ref) => {
         <CustomInput
           formIntro={true}
           control={control}
+          trigger={trigger}
           name="mensaje"
           multiline={true}
           numberOfLines={20}

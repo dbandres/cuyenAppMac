@@ -12,31 +12,12 @@ export function UserProvider({ children }) {
         usuario: "",
         telefono: "",
         contrato: "",
-        rol: ""
+        rol: "",
+        id: ''
     });
 
-    const setDataUser = (data) => {
-        if(data){
-					setUserData({
-            jwt: data.token || '',
-            nombre: data.usuario.nombre || '',
-            apellido: data.usuario.apellido || '',
-            email: data.usuario.email || '',
-            usuario: data.usuario.usuario || '',
-            telefono: data.usuario.telefono || '',
-            contrato: data.usuario.contrato || '',
-            rol: data.usuario.rol
-        })
-        AsyncStorage.setItem('userStorage', JSON.stringify(data))
-				}else{
-					console.log('No hay data');
-				}
-    }
-
-		console.log(userdata);
-
     return (
-        <UserContext.Provider value={{ userdata, setDataUser }}>
+        <UserContext.Provider value={{ userdata, setUserData }}>
             {children}
         </UserContext.Provider>
     )

@@ -5,7 +5,7 @@ import LinearGradient from "react-native-linear-gradient"
 const Width = Dimensions.get("screen").width
 const Height = Dimensions.get("window").height
 
-export function HeaderSection({scrollToContacto}){
+export default function HeaderSection({scrollToContacto}){
 
   const route = useRoute()
 

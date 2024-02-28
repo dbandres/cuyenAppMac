@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 export function Login({navigation}) {
 
-  const { control, handleSubmit, watch } = useForm()
+  const { control, handleSubmit, watch, trigger } = useForm()
   const [inputValue, setInputValue] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
 	const [showAlert2, setShowAlert2] = useState(false)
@@ -102,6 +102,7 @@ export function Login({navigation}) {
                 name="dniUser"
                 numeric="numeric"
                 secureTextEntry={true}
+								trigger={trigger}
               />
               <InputLogin
                 control={control}
@@ -109,6 +110,7 @@ export function Login({navigation}) {
                 name="passUser"
                 numeric="numeric"
                 secureTextEntry={true}
+								trigger={trigger}
               />
               <View style={{ top: 50 }}>
 						<View style={{ height: 47, width: "100%" }}>

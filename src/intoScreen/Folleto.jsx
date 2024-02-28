@@ -13,7 +13,11 @@ export function Folleto({ navigation, route }) {
     setUri(urls)
   }
   useEffect(() => {
-    transformUriImag(post.folleto)
+    if(post.folleto === "[]"){
+      setUri([post.image])
+    }else{
+      transformUriImag(post.folleto)
+    }
   }, [])
 
   return (

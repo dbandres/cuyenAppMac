@@ -2,7 +2,6 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View, Platform } from "reac
 import LinearGradient from "react-native-linear-gradient";
 import DropDownPicker from 'react-native-dropdown-picker'
 import { useEffect, useState } from "react";
-import { CustomInput } from "./CustomInput";
 import { useForm } from "react-hook-form";
 import CheckBox from '@react-native-community/checkbox'
 import { ButtonCustom } from "../components/ButtomCustom";
@@ -10,11 +9,12 @@ import AwesomeAlert from "react-native-awesome-alerts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContratos } from "../slices/numeroContrato";
 import { registerAuth } from "../slices/registerSlice";
+import { CustomInput } from "../intoScreen/CustomInput";
 
 export function Register({ navigation }) {
 
   const [itemsArray, setItemsArray] = useState([])
-  const { control, handleSubmit, setValue, watch } = useForm()
+  const { control, handleSubmit, setValue, watch, trigger } = useForm()
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const dispatch = useDispatch()
   const contratos = useSelector((state) => state.contratos.contratos)
@@ -202,8 +202,8 @@ export function Register({ navigation }) {
               control={control}
               placeholder="Ingresa tu DNI"
               name="userdni"
-              secureTextEntry
               numeric="numeric"
+              trigger={trigger}
               rules={{
                 required: true,
                 // pattern: { value: /^[0-9]+$/, message: "El DNI es incorrecto" },
@@ -221,6 +221,7 @@ export function Register({ navigation }) {
               control={control}
               name="username"
               placeholder="Nombre"
+              trigger={trigger}
               rules={{
                 required: true,
                 minLength: {
@@ -237,6 +238,7 @@ export function Register({ navigation }) {
               control={control}
               name="userlastname"
               placeholder="Apellido"
+              trigger={trigger}
               rules={{
                 required: true,
                 minLength: {
@@ -253,6 +255,7 @@ export function Register({ navigation }) {
               control={control}
               name="useremail"
               placeholder="Email"
+              trigger={trigger}
               rules={{
                 required: true,
                 pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "El Email ingresado no es válido." }
@@ -263,6 +266,7 @@ export function Register({ navigation }) {
               name="userphone"
               numeric="numeric"
               placeholder="Número de Celular"
+              trigger={trigger}
               rules={{
                 required: true,
                 pattern: { value: /^[0-9]+$/, message: "El Número ingresado no es válido." },
@@ -275,6 +279,7 @@ export function Register({ navigation }) {
               name="userpass"
               secureTextEntry
               numeric="numeric"
+              trigger={trigger}
               rules={{
                 required: true,
                 minLength: {
@@ -290,6 +295,7 @@ export function Register({ navigation }) {
               name="userpassrepeat"
               secureTextEntry
               numeric="numeric"
+              trigger={trigger}
               rules={{
                 required: true,
                 validate: value => value === pwd || "Las Contraseñas no coinciden",

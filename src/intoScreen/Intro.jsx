@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View, findNodeHandle } from "react-native";
-import { HeaderSection } from "../components/HeaderSection";
+import HeaderSection  from "../components/HeaderSection";
 import { PromosVigentes } from "./PromosVigente";
 import { InfoImportante } from "./InfoImportante";
 import { FormContact } from "./FormContact";
