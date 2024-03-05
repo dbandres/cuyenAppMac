@@ -12,6 +12,9 @@ import contratoReducer from "../slices/getContratoSlice"
 import verifyPasajeroReducer from "../slices/verifyPasajero"
 import pasajeroReducer from "../slices/getPasajeroSlice"
 import postPasajeroReducer from "../slices/postPasajeroSlice"
+import userVerifyReducer from "../slices/dniVerifyUser"
+import allColegiosReducer from "../slices/getAllColegios"
+import colegioVerifyReducer from "../slices/verifyColegios"
 
 export const store = configureStore({
   reducer:{
@@ -26,7 +29,10 @@ export const store = configureStore({
     contrato: contratoReducer,
     verifyPasajero: verifyPasajeroReducer,
     pasajero: pasajeroReducer,
-    postPasajero: postPasajeroReducer
+    postPasajero: postPasajeroReducer,
+    verifyUser: userVerifyReducer,
+    colegios: allColegiosReducer,
+    verifyColegios: colegioVerifyReducer
 
   }
 }, applyMiddleware(thunk))

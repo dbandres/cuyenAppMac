@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Image, Text, TouchableOpacity, View, Animated, Dimensions } from "react-native"
+import { Image, Text, TouchableOpacity, View, Animated, Dimensions, Platform } from "react-native"
 import { useDispatch, useSelector } from "react-redux";
 import { getDestino } from "../../slices/getDestinoSlice";
 import { UserContext } from "../../context/UserContext";
@@ -27,7 +27,7 @@ export function Destino() {
       contentRef.current.measure((x, y, width, height) => {
         console.log("he: ", height)
         Animated.timing(heightAnim, {
-          toValue: 400, // Ajusta según tus necesidades
+          toValue: Platform.OS === 'ios' ? height * 3 : height * 2.5, // Ajusta según tus necesidades
           //toValue: height + 480,
           duration: 100,
           useNativeDriver: false,
@@ -48,6 +48,7 @@ export function Destino() {
     dispatch(getDestino(userdata.contrato[0]))
   }, [])
 
+
   return (
     <Animated.View ref={contentRef} style={{ height: heightAnim, width: width * 0.9, backgroundColor: "white", marginTop: "5%", borderRadius: 10, padding: "2%", justifyContent: "flex-start", alignItems: "center" }}>
       <View style={{ width: width * 0.8, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", height: isExpanded ? 91 : "100%" }}>
@@ -62,9 +63,16 @@ export function Destino() {
             <Text style={{ color: "#564C71", fontWeight: "800", fontSize: 12, lineHeight: 14, marginBottom: 6 }}>
               Destino
             </Text>
-            <Text style={{ color: "#564C71", fontWeight: "400", fontSize: 16, lineHeight: 19 }}>
-              Tandil
-            </Text>
+            {
+              destino?.destino ?
+                <Text style={{ color: "#564C71", fontWeight: "400", fontSize: 16, lineHeight: 19 }}>
+                  {destino.destino}
+                </Text>
+                :
+                <Text style={{ color: "#564C71", fontWeight: "400", fontSize: 16, lineHeight: 19 }}>
+                  Sin destino disponible.
+                </Text>
+            }
           </View>
         </View>
         <View>
@@ -80,6 +88,21 @@ export function Destino() {
           </View>
         </View>
       </View>
+      {
+        isExpanded &&  destino.length !== 0 ?
+        <View style={{width:width * 0.8, height:95, borderRadius:20, borderWidth:1, borderColor:'#949AAF', justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontWeight:'800', fontSize:12, lineHeight:14, textAlign:'center', marginBottom:10}}>
+            Salida
+          </Text>
+          <Text style={{fontWeight:'700', fontSize:16, lineHeight:19, textAlign:'center'}}>
+            {
+              destino.salida
+            }
+          </Text>
+        </View>
+        :
+        null
+      }
     </Animated.View>
   )
 }

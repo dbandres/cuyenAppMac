@@ -3,7 +3,7 @@ import { ButtonCustom } from "../components/ButtomCustom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useDispatch, useSelector } from "react-redux";
-import { pasajeroPost } from "../slices/postPasajeroSlice";
+import { pasajeroPost, resetPostPasajero } from "../slices/postPasajeroSlice";
 import { useNavigation } from "@react-navigation/native";
 import AwesomeAlert from "react-native-awesome-alerts";
 
@@ -80,6 +80,7 @@ export function ModalComponent({ visible, onClose, data, inputChanged, agregarPa
   useEffect(()=>{
     if(postPasajero == '200'){
       onClose()
+      dispatch(resetPostPasajero())
       navigation.navigate('Información del viaje')
     }
   },[postPasajero])

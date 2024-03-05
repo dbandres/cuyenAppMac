@@ -27,6 +27,13 @@ const postPasajeroSlice = createSlice({
     loading: false,
     error: null,
   },
+  reducers: {
+    resetPostPasajero: (state) => {
+      state.postPasajero = '';
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (buider) => {
     buider
       .addCase(pasajeroPost.pending, (state) => {
@@ -43,6 +50,8 @@ const postPasajeroSlice = createSlice({
       })
   }
 })
+
+export const { resetPostPasajero } = postPasajeroSlice.actions;
 
 const postPasajeroReducer = postPasajeroSlice.reducer;
 export default postPasajeroReducer;

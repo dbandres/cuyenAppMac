@@ -75,8 +75,6 @@ export function Form({ agregarPasajero }) {
     openModal();
   }
 
-  console.log(datosTotales);
-
   useEffect(() => {
     const data = { dni, userdata }
     if (dni !== undefined && dni.length === 8) {

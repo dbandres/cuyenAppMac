@@ -2,19 +2,36 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { API_URL, token } from '../api';
 
-export const getPasajero = createAsyncThunk('getPasajero', async(id)=>{
-  try {
-    const response = await axios.get(`${API_URL}/pasajero/relation/${id}`,{
-      headers: {
-        'x-access-token': `${token}`,
-        "Content-Type": "application/json",
+export const getPasajero = createAsyncThunk('getPasajero', async(data)=>{
+  if(data.idPasajero === ''){
+    try {
+      const response = await axios.get(`${API_URL}/pasajero/relation/${data.userdata}`,{
+        headers: {
+          'x-access-token': `${token}`,
+          "Content-Type": "application/json",
+        }
+      })
+      if(response.status === 200){
+        return response.data;
       }
-    })
-    if(response.status === 200){
-      return response.data;
+    } catch (error) {
+      throw error
     }
-  } catch (error) {
-    throw error
+  }else{
+    try {
+      const response = await axios.get(`${API_URL}/pasajero/relation/${data.userdata}`,{
+        headers: {
+          'x-access-token': `${token}`,
+          "Content-Type": "application/json",
+        }
+      })
+      if(response.status === 200){
+        const filterId = response.data.filter((pasajero) => pasajero.id == data.idPasajero)
+        return filterId
+      }
+    } catch (error) {
+      throw error
+    }
   }
 })
 

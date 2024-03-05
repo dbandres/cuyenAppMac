@@ -2,27 +2,16 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { Header } from "../muro/Header"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useContext, useEffect, useState } from "react"
-import { Form } from "./Form"
-import { UserContext } from "../context/UserContext";
-import { useDispatch, useSelector } from "react-redux"
-import { getPasajero } from "../slices/getPasajeroSlice"
+import { Form } from "./Form";
 
 export function CargaPasajero({ navigation }) {
 
 	const [showForm, setShowForm] = useState(false)
-	const { userdata } = useContext(UserContext)
-	const dispatch = useDispatch()
-	const pasajero =	useSelector((state) =>state.pasajero.pasajero, (prev, next) => prev === next)
-
-	useEffect(()=>{
-		dispatch(getPasajero(userdata.id))
-	},[])
 
 	const agregarPasajero = () => {
 		setShowForm(!showForm)
 	}
 
-	console.log('PASAJERO: ',pasajero.length);
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView style={styles.container}>
@@ -35,16 +24,6 @@ export function CargaPasajero({ navigation }) {
 						children="Registro de pasajero"
 						navigation={navigation}
 					/>
-					{
-						pasajero.length !== 0 ?
-						<>
-							<Text>
-								Pasajero nuevo
-							</Text>	
-						</>
-						:
-						null
-					}	
 					{
 						showForm !== false ?
 						<>

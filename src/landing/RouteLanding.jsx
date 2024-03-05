@@ -9,7 +9,7 @@ export function RouteLanding(){
   return(
     <Stack.Navigator>
       <Stack.Screen name="landing" component={Landing} options={{ headerShown: false }}/>
-      <Stack.Screen name="folleto" component={Folleto} options={{ headerShown: false }}/>
+      <Stack.Screen name="folleto-screen" component={Folleto} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 }
