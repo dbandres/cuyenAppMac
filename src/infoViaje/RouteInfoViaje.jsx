@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createStackNavigator } from '@react-navigation/stack';
 import { ItineratioDelViaje } from "./ItinerarioDelViaje";
 import { InfoDelViaje } from "./InfoDelViaje";
-import { Contrato } from "./Contrato";
 import { EstadoDePagos } from "./EstadoDePagos";
 import { Image, Text, View } from "react-native";
 import { CargaPasajero } from "../cargaPasajero/CargaPasajero";
@@ -66,7 +65,6 @@ export const RouteInfoViaje = () => {
         },
       })}
     >
-      <Tab.Screen name="Contrato" component={Contrato} options={{ headerShown: false }} />
       <Tab.Screen name="Información del viaje" component={InfoDelViaje} options={{ headerShown: false }} />
       <Tab.Screen name="Itinerario del viaje" component={ItineratioDelViaje} options={{ headerShown: false }} />
       <Tab.Screen name="Estado de pagos" component={EstadoDePagos} options={{ headerShown: false }} />

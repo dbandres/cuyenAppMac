@@ -15,6 +15,7 @@ import postPasajeroReducer from "../slices/postPasajeroSlice"
 import userVerifyReducer from "../slices/dniVerifyUser"
 import allColegiosReducer from "../slices/getAllColegios"
 import colegioVerifyReducer from "../slices/verifyColegios"
+import hotelReducer from "../slices/getHotelByNumSlice"
 
 export const store = configureStore({
   reducer:{
@@ -32,7 +33,8 @@ export const store = configureStore({
     postPasajero: postPasajeroReducer,
     verifyUser: userVerifyReducer,
     colegios: allColegiosReducer,
-    verifyColegios: colegioVerifyReducer
+    verifyColegios: colegioVerifyReducer,
+    hotelByNum: hotelReducer
 
   }
 }, applyMiddleware(thunk))

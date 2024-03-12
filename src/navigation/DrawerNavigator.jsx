@@ -9,21 +9,20 @@ import { RouteMuro } from '../screens/tabScreens/muro/RouteMuro';
 import { UserContext } from '../context/UserContext';
 import { useContext } from "react";
 import { Folleto } from '../screens/auth/intoScreen/Folleto';
-import { RouteGestion } from '../screens/tabScreens/gestionViaje/RouteGestion';
-import Auth from '../api/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RouteLanding } from '../landing/RouteLanding';
 import { RouteInfoViaje } from '../infoViaje/RouteInfoViaje';
 import { RouteInicial } from '../infoViaje/RouteInicial';
+import { AuthContext } from '../context/AuthContext';
 
 
 
 const CustomDrawerContent = ({ navigation }) => {
 
 	const { userdata, setUserData } = useContext(UserContext)
+	const {authenticate, setAuthenticate} = useContext(AuthContext)
 
 	const singOutSession = () => {
-		Auth.singOut()
 		AsyncStorage.removeItem("userStorage")
 		setUserData({
 			apellido: "",
@@ -35,6 +34,8 @@ const CustomDrawerContent = ({ navigation }) => {
 			telefono: "",
 			usuario: ""
 		})
+		setAuthenticate(false)
+		navigation.navigate("login")
 	}
 
 	const abrirLink = (linkUrl) => {

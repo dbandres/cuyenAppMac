@@ -163,7 +163,7 @@ export function Register({ navigation }) {
 		setColegioSeleccionado(cole);
 	};
 
-  console.log(verifyColegio);
+  //console.log(verifyColegio);
 
   return (
     <SafeAreaView style={styles.container}>

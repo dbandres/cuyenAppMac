@@ -6,19 +6,24 @@ import { ButtonCustom } from "../components/ButtomCustom";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAut } from "../slices/loginSlice";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
 
 
 
 export function Login({navigation}) {
 
   const { control, handleSubmit, watch, trigger } = useForm()
+	const { setUserData } = useContext(UserContext)
+
   const [inputValue, setInputValue] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
 	const [showAlert2, setShowAlert2] = useState(false)
+
 	const dataLogin = useSelector((state) => state.login.login)
 	const errorLogin = useSelector((state) => state.login.error)
 	const loadingLogin = useSelector((state) => state.login.loading)
+
 	const dispatch = useDispatch()
 
   const showAlerts = (show, setShow, titulo, msg, text) => {
@@ -82,9 +87,20 @@ export function Login({navigation}) {
 	useEffect(()=>{
 		if(dataLogin.length !== 0){
 			setShowAlert2(false)
+			setUserData({
+				jwt: dataLogin.token,
+        nombre: dataLogin.usuario.nombre,
+        apellido: dataLogin.usuario.apellido,
+        email: dataLogin.usuario.email,
+        usuario: dataLogin.usuario.usuario,
+        telefono: dataLogin.usuario.telefono,
+        contrato: dataLogin.usuario.contrato,
+        rol: dataLogin.usuario.rol,
+        id: dataLogin.usuario.id
+			})
+			navigation.navigate('landing')
 		}
 	},[dataLogin])
-
 
   return (
     <SafeAreaView style={{flex:1}}>

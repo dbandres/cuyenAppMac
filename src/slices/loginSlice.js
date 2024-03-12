@@ -45,9 +45,8 @@ export const loginAut = createAsyncThunk('loginAut', async (data) => {
       })
     if (response.status === 200) {
       console.log(response);
-      const respFirebase = await auth().signInWithEmailAndPassword(response.data.usuario.email, data.passUser)
+      //const respFirebase = await auth().signInWithEmailAndPassword(response.data.usuario.email, data.passUser)
       AsyncStorage.setItem('userStorage', JSON.stringify(response.data))
-      console.log('login firebase: ',respFirebase);
       return response.data;
     }
   } catch (error) {

@@ -3,6 +3,7 @@ import { Image, Text, TouchableOpacity, View, Animated, Dimensions, Platform } f
 import { useDispatch, useSelector } from "react-redux";
 import { getDestino } from "../../slices/getDestinoSlice";
 import { UserContext } from "../../context/UserContext";
+import { InfoContext } from "../InfoContext";
 
 const { height } = Dimensions.get('window');
 const { width } = Dimensions.get('window');
@@ -11,9 +12,12 @@ export function Destino() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [heightAnim] = useState(new Animated.Value(88));
+
   const destino = useSelector((state) => state.destino.destino)
   const dispatch = useDispatch()
   const contentRef = useRef(null);
+
+  const { miInfo, setMiInfo } = useContext(InfoContext)
   const { userdata } = useContext(UserContext)
 
   const toggleExpand = () => {
@@ -47,6 +51,18 @@ export function Destino() {
   useEffect(() => {
     dispatch(getDestino(userdata.contrato[0]))
   }, [])
+
+  useEffect(() => {
+    if (destino.length !== 0) {
+      // Función para cambiar el valor de hotel id
+        setMiInfo(prevState => ({
+          ...prevState,
+          hotelId: destino.hotelId
+        }))
+    }
+
+  }, [destino])
+
 
 
   return (

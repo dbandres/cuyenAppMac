@@ -35,13 +35,23 @@ export const getPasajero = createAsyncThunk('getPasajero', async(data)=>{
   }
 })
 
+export const resetPasajero = () => ({
+  type: 'resetPasajero/reset'
+});
 
 const pasajeroSlice = createSlice({
   name: 'pasajeroSlice',
   initialState: {
-    pasajero: [],
+    pasajero: '',
     loading: false,
     error: null,
+  },
+  reducers: {
+    resetPasajeroState: (state) => {
+      state.pasajero = '';
+      state.loading = false;
+      state.error = null;
+    },
   },
   extraReducers: (buider) => {
     buider
@@ -59,6 +69,8 @@ const pasajeroSlice = createSlice({
       })
   }
 })
+
+export const { resetPasajeroState } = pasajeroSlice.actions;
 
 const pasajeroReducer = pasajeroSlice.reducer
 export default pasajeroReducer;

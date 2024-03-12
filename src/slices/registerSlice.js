@@ -42,7 +42,7 @@ export const registerAuth = createAsyncThunk('loginAut', async (data) => {
       })
     if (response.status === 200) {
       console.log(data);
-      const respFirebase = await auth().createUserWithEmailAndPassword(data.email, data.password)
+      //const respFirebase = await auth().createUserWithEmailAndPassword(data.email, data.password)
       return response.data;
     }
   } catch (error) {
